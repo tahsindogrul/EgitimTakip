@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EgitimTakip.Web", "EgitimTakip.Web.csproj", "{663418B3-8836-4740-BB19-59C2F5153643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EgitimTakip.Models", "..\EgitimTakip.Models\EgitimTakip.Models.csproj", "{00A81192-09D8-4421-A114-1AEEF3E9E511}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{663418B3-8836-4740-BB19-59C2F5153643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{663418B3-8836-4740-BB19-59C2F5153643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{663418B3-8836-4740-BB19-59C2F5153643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{663418B3-8836-4740-BB19-59C2F5153643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A81192-09D8-4421-A114-1AEEF3E9E511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A81192-09D8-4421-A114-1AEEF3E9E511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A81192-09D8-4421-A114-1AEEF3E9E511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A81192-09D8-4421-A114-1AEEF3E9E511}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A568B90-6EC6-4C61-AD13-F9699D060C97}
+	EndGlobalSection
+EndGlobal
