@@ -12,6 +12,7 @@ namespace EgitimTakip.Models
     {
         public string UserName { get; set; }    
         public string Password { get; set; }
+        public bool IsAdmin { get; set; }= false;
 
         public virtual ICollection<Company> Companies { get; set; }= new
             List<Company>();
