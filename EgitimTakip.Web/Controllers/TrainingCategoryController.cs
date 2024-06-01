@@ -56,6 +56,13 @@ namespace EgitimTakip.Web.Controllers
 
 
         }
+        [HttpPost]
+        public IActionResult Update(TrainingCategory trainingCategory)
+        {
+            _context.TrainingCategories.Update(trainingCategory);
+            _context.SaveChanges();
+            return Ok(trainingCategory);
+        }
 
      
     }
