@@ -36,12 +36,27 @@ namespace EgitimTakip.Web.Controllers
                 _context.SaveChanges();
                 return Ok(trainingCategory);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //return BadRequest(ex);
 
-                return StatusCode(500,ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
+
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var trainingCategory = _context.TrainingCategories.Find(id);
+            trainingCategory.IsDeleted= true;
+            _context.TrainingCategories.Update(trainingCategory);
+            _context.SaveChanges();
+            return Ok();
+
+
+        }
+
+     
     }
 }
