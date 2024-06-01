@@ -1,0 +1,55 @@
+﻿<div class="row">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header bg-gradient-success text-white fs-5">
+                <box-icon name="book-bookmark" color="white" size="sm" animation="tada">  </box-icon> Eğitim Kategorileri
+            </div>
+            <div class="card-body">
+
+                <table id="tblTrainingCategories" class="table table-hovered table-striped table-bordered"> </table>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        var DataTable = "";
+
+        $(document).ready(() =>{
+
+            DataTable = $("#tblTrainingCategories").DataTable({
+
+                ajax: '/TrainingCategory/GetAll',
+                columns: [
+                    { data: 'id', title: 'ID' },
+                    { data: 'name', title: 'Kategori Adı' },
+                    {
+                        data: 'id', title: 'İşlemler', render: (data) => {
+                            return `<a href="#" title="Sil"> <box-icon name="trash-alt" color="red" size="sm" class="bx-burst-hover" >  </box-icon> </a>
+                                            <a href="#" title="Düzenle"> <box-icon name="pencil" color="blue" size="sm" class="bx-burst-hover" >  </box-icon> </a>`
+                        }
+                    }
+                ]
+            });
+
+
+        });
+
+
+    </script>
+}
