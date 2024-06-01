@@ -23,7 +23,7 @@ namespace EgitimTakip.Web.Controllers
         {
            
 
-                return Json(_context.Companies.Where(c=>!c.IsDeleted).ToList()).;
+                return Json(_context.Companies.Where(c=>!c.IsDeleted).ToList());
         }
 
         [HttpPost]
