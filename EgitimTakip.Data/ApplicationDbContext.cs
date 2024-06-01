@@ -29,6 +29,9 @@ namespace EgitimTakip.Data
 
         public virtual DbSet<TrainingsSubjectsMap> TrainingsSubjectsMaps { get; set; }
 
+        public virtual DbSet<TrainingCategory> TrainingCategories { get; set; }
+
+
         //FLUENT API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
