@@ -64,6 +64,12 @@ namespace EgitimTakip.Web.Controllers
             return Ok(trainingCategory);
         }
 
+        [HttpPost]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_context.TrainingCategories.Find(id));
+        }
+
      
     }
 }
