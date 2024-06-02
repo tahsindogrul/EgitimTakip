@@ -22,6 +22,8 @@ namespace EgitimTakip.Data
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
+        public virtual DbSet<AppUserType> UserTypes { get; set; }
+
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Training> Trainings { get; set; }
