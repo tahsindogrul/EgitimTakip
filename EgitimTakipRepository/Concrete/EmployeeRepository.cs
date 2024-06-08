@@ -14,7 +14,7 @@ namespace EgitimTakipRepository.Concrete
     {
         private readonly ApplicationDbContext _context;
 
-        public EmployeeRepository(ApplicationDbContext context)
+        public EmployeeRepository(ApplicationDbContext context ):base(context)
         {
             _context = context;
         }
