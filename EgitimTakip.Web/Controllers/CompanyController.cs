@@ -1,16 +1,17 @@
 ﻿using EgitimTakip.Data;
 using EgitimTakip.Models;
+using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<Company> _repo;
 
-        public CompanyController(ApplicationDbContext context)
+        public CompanyController(IRepository<Company> repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public IActionResult Index()
@@ -21,25 +22,21 @@ namespace EgitimTakip.Web.Controllers
 
         public IActionResult GetAll()
         {
-           
+         return Json(_repo.GetAll());  
 
-                return Json(_context.Companies.Where(c=>!c.IsDeleted).ToList());
+                //return Json(_context.Companies.Where(c=>!c.IsDeleted).ToList());
         }
 
         [HttpPost]
         public IActionResult Add(Company company)
         {
-            _context.Companies.Add(company);
-            _context.SaveChanges();
-            return Ok(company);
+           return Ok( _repo.Add(company));
         }
 
         [HttpPost]
         public IActionResult Update(Company company)
         {
-            _context.Companies.Update(company);
-            _context.SaveChanges();
-            return Ok(company);
+            return Ok(_repo.Update(company));
         }
 
 
@@ -66,10 +63,13 @@ namespace EgitimTakip.Web.Controllers
         public IActionResult SoftDelete(int id)
         {
             //Soft Delete
-           var company= _context.Companies.Find(id);
-            company.IsDeleted=true;
-            _context.Companies.Update(company);
-            _context.SaveChanges();
+            //var company= _context.Companies.Find(id);
+            // company.IsDeleted=true;
+            // _context.Companies.Update(company);
+            // _context.SaveChanges();
+            // return Ok();
+
+            _repo.Delete(id);
             return Ok();
         }
 

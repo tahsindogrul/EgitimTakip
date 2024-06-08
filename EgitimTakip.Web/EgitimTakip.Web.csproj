@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EgitimTakip.Data\EgitimTakip.Data.csproj" />
+    <ProjectReference Include="..\EgitimTakipRepository\EgitimTakipRepository.csproj" />
   </ItemGroup>
 
 </Project>
