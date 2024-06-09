@@ -10,7 +10,7 @@ namespace EgitimTakip.Models
     {
         public string Name { get; set; }
        
-        public virtual ICollection<AppUser>  User { get; set; }
+        public virtual ICollection<AppUser>  Users { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }= new
              List<Employee>();
 

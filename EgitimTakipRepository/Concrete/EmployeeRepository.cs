@@ -12,16 +12,19 @@ namespace EgitimTakipRepository.Concrete
 {
     public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
     {
-        private readonly ApplicationDbContext _context;
+        
 
         public EmployeeRepository(ApplicationDbContext context ):base(context)
         {
-            _context = context;
+            
         }
 
         public ICollection<Employee> GetAll(int companyId)
         {
-            return _context.Employees.Where(e=>!e.IsDeleted && e.CompanyId==companyId).ToList();
+            return base.GetAll().Where(emp=>emp.CompanyId==companyId).ToList();
+
+            //return _context.Employees.Where(e=>!e.IsDeleted && e.CompanyId==companyId).ToList();
+        
         }
     }
 }

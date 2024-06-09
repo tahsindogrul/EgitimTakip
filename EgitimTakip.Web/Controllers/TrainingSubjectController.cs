@@ -1,16 +1,17 @@
 ﻿using EgitimTakip.Data;
 using EgitimTakip.Models;
+using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
 {
     public class TrainingSubjectController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<TrainingSubject> _repo;
 
-        public TrainingSubjectController(ApplicationDbContext context)
+        public TrainingSubjectController(IRepository<TrainingSubject> repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public IActionResult Index()
@@ -20,34 +21,29 @@ namespace EgitimTakip.Web.Controllers
 
         public IActionResult GetAll()
         {
-            var result= _context.TrainingSubjects.ToList();
-            return Json(new { data = result });
+            
+            return Json(new { data = _repo.GetAll() });
         }
 
         [HttpPost]
         public IActionResult Add(TrainingSubject trainingSubject)
         {
-            _context.TrainingSubjects.Add(trainingSubject);
-            _context.SaveChanges();
-            return Ok(trainingSubject);
+           
+            return Ok(_repo.Add(trainingSubject));
         }
 
         [HttpPost]
         public IActionResult Delete( int id)
         {
-           TrainingSubject trainingSubject= _context.TrainingSubjects.Find(id);
-            trainingSubject.IsDeleted = true;
-            _context.TrainingSubjects.Update(trainingSubject);
-            _context.SaveChanges();
-            return Ok(trainingSubject);
+        
+            return Ok(_repo.Delete(id) is object);
 
         }
 
         public IActionResult Update(TrainingSubject trainingSubject)
         {
-            _context.TrainingSubjects.Update(trainingSubject);
-            _context.SaveChanges();
-            return Ok(trainingSubject);
+         
+            return Ok(_repo.Update(trainingSubject));
         }
     }
 }

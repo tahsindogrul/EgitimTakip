@@ -23,9 +23,17 @@ namespace EgitimTakipRepository.Shared.Concrete
 
         public T Add(T entity)
         {
-            _dbSet.Add(entity);
-            Save();
-            return entity;
+            try
+            {
+                _dbSet.Add(entity);
+                Save();
+                return entity;
+            }
+            catch
+            {
+                return entity;
+            }
+          
 
 
         }

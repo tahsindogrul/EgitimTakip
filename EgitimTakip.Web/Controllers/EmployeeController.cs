@@ -1,5 +1,6 @@
 ﻿using EgitimTakip.Data;
 using EgitimTakip.Models;
+using EgitimTakipRepository.Abstcract;
 using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,9 @@ namespace EgitimTakip.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IRepository<Employee> _repo;
+        private readonly IEmployeeRepository _repo;
 
-        public EmployeeController(IRepository<Employee> repo)
+        public EmployeeController(IEmployeeRepository repo)
         {
             _repo = repo;
         }
@@ -22,8 +23,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult GetAll(int companyId)
         {
-            var result = _context.Employees.Where(e => e.CompanyId == companyId && e.IsDeleted==false).ToList();
-            return Json(new { data = result });
+            return Json(new { data = _repo.GetAll(companyId) });
         }
 
 

@@ -1,16 +1,17 @@
 ﻿using EgitimTakip.Data;
 using EgitimTakip.Models;
+using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
 {
     public class TrainingCategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<TrainingCategory> _repo;
 
-        public TrainingCategoryController(ApplicationDbContext context)
+        public TrainingCategoryController(IRepository<TrainingCategory> repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public IActionResult Index()
@@ -22,25 +23,20 @@ namespace EgitimTakip.Web.Controllers
         {
             return Json(new
             {
-                data = _context.TrainingCategories.Where(
-            tc => !tc.IsDeleted).ToList()
+                data = _repo.GetAll(),
             });
         }
 
         [HttpPost]
         public IActionResult Add(TrainingCategory trainingCategory)
         {
-            try
-            {
-                _context.TrainingCategories.Add(trainingCategory);
-                _context.SaveChanges();
-                return Ok(trainingCategory);
+            TrainingCategory category= _repo.Add(trainingCategory);
+            if(category.Id == 0) {
+                return BadRequest();
             }
-            catch (Exception ex)
+            else
             {
-                //return BadRequest(ex);
-
-                return StatusCode(500, ex.Message);
+                return Ok(category);
             }
         }
 
@@ -48,26 +44,21 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var trainingCategory = _context.TrainingCategories.Find(id);
-            trainingCategory.IsDeleted= true;
-            _context.TrainingCategories.Update(trainingCategory);
-            _context.SaveChanges();
-            return Ok();
+            return Ok(_repo.Delete(id) is object);
 
 
         }
         [HttpPost]
         public IActionResult Update(TrainingCategory trainingCategory)
         {
-            _context.TrainingCategories.Update(trainingCategory);
-            _context.SaveChanges();
-            return Ok(trainingCategory);
+         
+            return Ok(_repo.Update(trainingCategory));
         }
 
         [HttpPost]
         public IActionResult GetById(int id)
         {
-            return Ok(_context.TrainingCategories.Find(id));
+            return Ok(_repo.GetById(id));
         }
 
      
