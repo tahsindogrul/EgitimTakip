@@ -33,16 +33,21 @@ namespace EgitimTakipRepository.Concrete
             return training;
         }
 
-        public void AddEmployees(int trainingId, List<Employee> employees)
+        public override Training GetById(int trainingId)
         {
-            Training training = base.GetById(trainingId);
-            training.Employees.ToList().AddRange(employees);
+            return base.GetAll(t=>t.Id == trainingId).Include(t=>t.Employees).First();
+        }
+
+        public void UpdateAttendees(int trainingId, List<Employee> employees)
+        {
+            Training training = GetById(trainingId);
+            training.Employees= employees;
             base.Update(training); 
         }
 
         public ICollection<Training> GetAll(int companyId)
         {
-            return base.GetAll().Where(t=>t.CompanyId == companyId).ToList();
+            return base.GetAll(t => t.CompanyId == companyId).ToList();
         }
 
         public void RemoveEmployee(int trainingId, Employee employee)
