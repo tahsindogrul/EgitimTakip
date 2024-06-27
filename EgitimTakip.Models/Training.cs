@@ -13,6 +13,7 @@ namespace EgitimTakip.Models
 
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
+        public string? FilePath {  get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
 
