@@ -51,5 +51,14 @@ namespace EgitimTakip.Web.Controllers
             training.TrainingsSubjectsMap=trainingsSubjectsMaps;
             return Ok(_repo.Update(training));
         }
+
+
+        [HttpPost]
+        public IActionResult UpdateAttendees(int trainingId,List<Employee> attendees)
+        {
+           return Ok( _repo.UpdateAttendees(trainingId, attendees) is object);
+
+
+        }
     }
 }
