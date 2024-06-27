@@ -9,7 +9,8 @@ namespace EgitimTakipRepository.Shared.Abstcract
 {
     public interface IRepository<T> where T : class
     {
-        ICollection<T> GetAll();
+        IQueryable<T> GetAll();
+         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         T Add(T entity);
         List<T> AddRange(List<T> entities);
         T Update(T entity);

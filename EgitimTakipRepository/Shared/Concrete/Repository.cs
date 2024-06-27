@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,12 +58,17 @@ namespace EgitimTakipRepository.Shared.Concrete
 
         }
 
-        public ICollection<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-           return _dbSet.Where(x=> x.IsDeleted).ToList();
+            return _dbSet.Where(x => x.IsDeleted);
         }
 
-        public T GetById(int id)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            return GetAll().Where(predicate);
+        }
+
+        public virtual T GetById(int id)
         {
             return _dbSet.Find(id);
         }
