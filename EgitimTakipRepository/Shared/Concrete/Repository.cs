@@ -50,8 +50,8 @@ namespace EgitimTakipRepository.Shared.Concrete
         {
           T entity=  _dbSet.Find(id);
             entity.IsDeleted = true;
-            _dbSet.Update(entity);
-            Save();
+            Update(entity);
+           
             
             
             
