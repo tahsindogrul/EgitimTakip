@@ -1,4 +1,6 @@
-﻿using EgitimTakip.Data;
+﻿using EgitimTakip.Business.Abstract;
+using EgitimTakip.Business.Concrete;
+using EgitimTakip.Data;
 using EgitimTakip.Models;
 using EgitimTakipRepository.Abstcract;
 using EgitimTakipRepository.Shared.Abstcract;
@@ -8,11 +10,11 @@ namespace EgitimTakip.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepository _repo;
+       private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(IEmployeeRepository repo)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _repo = repo;
+            _employeeService = employeeService;
         }
 
         public IActionResult Index()
@@ -23,7 +25,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult GetAll(int companyId)
         {
-            return Json(new { data = _repo.GetAll(companyId) });
+            return Json(new { data = _employeeService.GetAll(companyId) });
         }
 
 
@@ -32,7 +34,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Add(Employee employee)
         {
-            return Ok(_repo.Add(employee));
+            return Ok(_employeeService.Add(employee));
 
 
 
@@ -41,13 +43,13 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-          return Ok(_repo.Delete(id) is object);
+          return Ok(_employeeService.Delete(id) );
         }
 
         [HttpPost]
         public IActionResult Update(Employee employee)
         {
-            return Ok(_repo.Update(employee));
+            return Ok(_employeeService.Update(employee));
         }
 
 

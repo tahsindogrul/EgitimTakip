@@ -1,17 +1,22 @@
-﻿using EgitimTakip.Data;
+﻿using EgitimTakip.Business.Abstract;
+using EgitimTakip.Data;
 using EgitimTakip.Models;
 using EgitimTakipRepository.Abstcract;
+using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
 {
     public class TrainingController : Controller
     {
-        private readonly ITrainingRepository _repo;
+        private readonly ITrainingService _trainingService;
+       
 
-        public TrainingController(ITrainingRepository repo)
+        public TrainingController(ITrainingService trainingService,IRepository
+            <TrainingsSubjectsMap> subjectsRepo)
         {
-            _repo = repo;
+            _trainingService = trainingService;
+           
         }
 
         public IActionResult Index()
@@ -21,7 +26,7 @@ namespace EgitimTakip.Web.Controllers
 
         public IActionResult GetAll(int companyId)
         {
-            return Json(new { data = _repo.GetAll(companyId)});
+            return Json(new { data = _trainingService.GetAll(companyId)});
 
         }
 
@@ -29,14 +34,14 @@ namespace EgitimTakip.Web.Controllers
         public IActionResult Add(Training training, List<TrainingsSubjectsMap> trainingsSubjectsMaps)
         {
            
-            return Ok(_repo.Add(training,trainingsSubjectsMaps));
+            return Ok(_trainingService.Add(training,trainingsSubjectsMaps));
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
           
-            return Ok(_repo.Delete(id) is object);
+            return Ok(_trainingService.Delete(id) );
 
         }
 
@@ -45,18 +50,14 @@ namespace EgitimTakip.Web.Controllers
             trainingsSubjectsMaps)
 
         {
-            training.TrainingsSubjectsMap = new List<TrainingsSubjectsMap>();
-            _repo.Update(training);
-
-            training.TrainingsSubjectsMap=trainingsSubjectsMaps;
-            return Ok(_repo.Update(training));
+          return Ok ( _trainingService.Update(training, trainingsSubjectsMaps));
         }
 
 
         [HttpPost]
         public IActionResult UpdateAttendees(int trainingId,List<Employee> attendees)
         {
-           return Ok( _repo.UpdateAttendees(trainingId, attendees) is object);
+           return Ok(_trainingService.UpdateAttendees(trainingId, attendees));
 
 
         }

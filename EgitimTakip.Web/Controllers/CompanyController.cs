@@ -1,17 +1,19 @@
-﻿using EgitimTakip.Data;
+﻿using EgitimTakip.Business.Abstract;
+using EgitimTakip.Data;
 using EgitimTakip.Models;
 using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EgitimTakip.Web.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly IRepository<Company> _repo;
+       private readonly ICompanyService _companyService;
 
-        public CompanyController(IRepository<Company> repo)
+        public CompanyController(ICompanyService companyService)
         {
-            _repo = repo;
+            _companyService = companyService;
         }
 
         public IActionResult Index()
@@ -22,54 +24,28 @@ namespace EgitimTakip.Web.Controllers
 
         public IActionResult GetAll()
         {
-         return Json(_repo.GetAll());  
+            return Json(_companyService.GetAll(int.Parse(User.FindFirst(
+                ClaimTypes.NameIdentifier).Value))); 
 
-                //return Json(_context.Companies.Where(c=>!c.IsDeleted).ToList());
         }
 
         [HttpPost]
         public IActionResult Add(Company company)
         {
-           return Ok( _repo.Add(company));
+           return Ok(_companyService.Add(company));
         }
 
         [HttpPost]
         public IActionResult Update(Company company)
         {
-            return Ok(_repo.Update(company));
+            return Ok(_companyService.Update(company));
         }
-
-
-        //[HttpPost]
-        //public IActionResult Delete(int id)
-        //{ //hard delete
-        //    var company = _context.Companies.Find(id);
-        //    _context.Companies.Remove(company);
-        //    return Ok();
-        //}
-
-
-        //[HttpPost]
-        //public IActionResult Delete(Company company) 
-        //{
-        //    //hard delete
-        //_context.Companies.Remove(company);
-        //    _context.SaveChanges(); 
-        //    return Ok();
-        //}
-
 
         [HttpPost]
         public IActionResult SoftDelete(int id)
         {
-            //Soft Delete
-            //var company= _context.Companies.Find(id);
-            // company.IsDeleted=true;
-            // _context.Companies.Update(company);
-            // _context.SaveChanges();
-            // return Ok();
 
-            _repo.Delete(id);
+            _companyService.Delete(id);
             return Ok();
         }
 

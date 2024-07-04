@@ -1,4 +1,5 @@
-﻿using EgitimTakip.Data;
+﻿using EgitimTakip.Business.Abstract;
+using EgitimTakip.Data;
 using EgitimTakip.Models;
 using EgitimTakipRepository.Shared.Abstcract;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +8,11 @@ namespace EgitimTakip.Web.Controllers
 {
     public class TrainingCategoryController : Controller
     {
-        private readonly IRepository<TrainingCategory> _repo;
+        private readonly ITraninigCategoryService _trainingCategoryService;
 
-        public TrainingCategoryController(IRepository<TrainingCategory> repo)
+        public TrainingCategoryController(ITraninigCategoryService categoryService)
         {
-            _repo = repo;
+            _trainingCategoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -23,14 +24,14 @@ namespace EgitimTakip.Web.Controllers
         {
             return Json(new
             {
-                data = _repo.GetAll(),
+                data = _trainingCategoryService.GetAll(),
             });
         }
 
         [HttpPost]
         public IActionResult Add(TrainingCategory trainingCategory)
         {
-            TrainingCategory category= _repo.Add(trainingCategory);
+            TrainingCategory category = _trainingCategoryService.Add(trainingCategory);
             if(category.Id == 0) {
                 return BadRequest();
             }
@@ -44,7 +45,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            return Ok(_repo.Delete(id) is object);
+            return Ok(_trainingCategoryService.Delete(id) is object);
 
 
         }
@@ -52,15 +53,15 @@ namespace EgitimTakip.Web.Controllers
         public IActionResult Update(TrainingCategory trainingCategory)
         {
          
-            return Ok(_repo.Update(trainingCategory));
+            return Ok(_trainingCategoryService.Update(trainingCategory));
         }
 
         [HttpPost]
         public IActionResult GetById(int id)
         {
-            return Ok(_repo.GetById(id));
+            return Ok(_trainingCategoryService.GetById(id));
         }
-
+         
      
     }
 }

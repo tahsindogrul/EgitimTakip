@@ -1,4 +1,5 @@
-﻿using EgitimTakip.Data;
+﻿using EgitimTakip.Business.Abstract;
+using EgitimTakip.Data;
 using EgitimTakip.Models;
 using EgitimTakipRepository.Abstcract;
 using EgitimTakipRepository.Shared.Abstcract;
@@ -12,12 +13,14 @@ namespace EgitimTakip.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository _repo;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository repo)
+        public UserController(IUserService userService)
         {
-            _repo = repo;
+            _userService = userService;
         }
+
+       
 
         public IActionResult Index()
         {
@@ -32,7 +35,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(AppUser user)
         {
-            AppUser appUser = _repo.CheckUser(user.UserName, user.Password);
+            AppUser appUser = _userService.CheckUser(user.UserName, user.Password);
 
             if ((appUser != null))
             {
@@ -60,7 +63,7 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Add(AppUser user)
         {
-          return Ok( _repo.Add(user));
+          return Ok( _userService.Add(user));
         }
 
 
@@ -68,20 +71,20 @@ namespace EgitimTakip.Web.Controllers
         [HttpPost]
         public IActionResult Update(AppUser user) 
         {
-            return Ok(_repo.Update(user));
+            return Ok(_userService.Update(user));
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            return Ok(_repo.Delete(id) is object); ;
+            return Ok(_userService.Delete(id) is object); ;
         }
 
         public IActionResult GetAll()
         {
           
 
-            return Json(new { data = _repo.GetAll() });
+            return Json(new { data = _userService.GetAll() });
         }
     }
 

@@ -1,3 +1,6 @@
+using EgitimTakip.Business.Abstract;
+using EgitimTakip.Business.Concrete;
+using EgitimTakip.Business.Configuration;
 using EgitimTakip.Data;
 using EgitimTakipRepository.Abstcract;
 using EgitimTakipRepository.Concrete;
@@ -14,11 +17,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer
 (builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ITrainingRepository,TrainingRepository>();
-builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+
+builder.Services.RepositoryDI();
+builder.Services.BusinessDI();
+
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
